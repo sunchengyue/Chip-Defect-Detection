@@ -1,0 +1,12 @@
+# 芯片缺陷检测数据集配置
+# 使用前请将数据集按 YOLO 格式放到本仓库根目录下的 datasets/chip_defect_detection/，
+# 即 datasets/chip_defect_detection/images/{train,val} 与 datasets/chip_defect_detection/labels/{train,val}
+train: datasets/chip_defect_detection/images/train
+val: datasets/chip_defect_detection/images/val
+
+nc: 4
+names:
+  0: scratch #划痕
+  1: broken #破损、缺角
+  2: particle #颗粒
+  3: stain #污渍
