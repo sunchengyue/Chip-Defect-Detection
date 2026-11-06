@@ -105,7 +105,7 @@ results[0].save('out.jpg')
 
 权重文件自带网络结构与类别名，无需再加载 yaml 配置。
 
-**注意**：`weights/simam/best.pt` 包含自定义的 SimAM 模块，加载前需将仓库根目录的 `attention.py` 复制到所装 ultralytics 包的 `nn/modules/` 目录下（即 `ultralytics/nn/modules/attention.py`），否则反序列化时会报 `ModuleNotFoundError`。基线权重无此要求。
+**注意**：`weights/simam/best.pt` 包含自定义的 SimAM 模块，加载前需将仓库根目录的 `attention.py` 复制到所装 ultralytics 包的 `nn/modules/` 目录下（即 `ultralytics/nn/modules/attention.py`），否则反序列化时会报 `ModuleNotFoundError`。基线权重无此要求。`train_simam.py` 已内置 SimAM 自动注册逻辑，训练时无需任何手动操作。
 
 ## 引用
 
