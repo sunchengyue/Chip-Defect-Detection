@@ -1,0 +1,6 @@
+# 与训练环境保持一致，ultralytics 版本需固定（权重 pickle 与该版本内部结构绑定）
+ultralytics==8.4.37
+torch
+torchvision
+opencv-python
+numpy
