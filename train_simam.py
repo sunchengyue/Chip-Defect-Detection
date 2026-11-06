@@ -1,9 +1,16 @@
 # train_simam.py
 # 改进模型训练脚本（YOLOv8n-SimAM）
+import sys  # 导入sys模块，用于把仓库根目录加入模块搜索路径
 from pathlib import Path  # 导入路径处理模块
 from ultralytics import YOLO  # 导入Ultralytics YOLO库，用于模型加载和训练
 
 ROOT = Path(__file__).resolve().parent  # 仓库根目录（即本脚本所在目录）
+
+# 注册自定义SimAM模块：让原版ultralytics也能解析yolov8n_simam_middle.yaml中的SimAM层
+sys.path.insert(0, str(ROOT))  # 将仓库根目录加入模块搜索路径
+from attention import SimAM    # 导入仓库中的SimAM模块定义
+import ultralytics.nn.tasks as _tasks
+_tasks.SimAM = SimAM           # 注入到ultralytics的网络解析命名空间
 
 print("=" * 60)
 print(" 改进模型训练（YOLOv8n-SimAM，与基线模型公平对比）")
