@@ -38,6 +38,9 @@ Chip-Defect-Detection/
 ├── predict.py                 批量预测与可视化脚本
 ├── yolov8n_simam_middle.yaml  改进模型网络结构配置（SimAM 置于骨干第5层后）
 ├── dataset.yaml               数据集路径与类别配置
+├── attention.py               SimAM 模块定义（加载 simam 权重需要）
+├── requirements.txt           环境依赖（ultralytics 版本已固定）
+├── datasets/chip_defect_detection/  10 张验证集样例（含标注，可直接跑 predict.py）
 └── weights/
     ├── baseline/best.pt       基线模型最佳权重（mAP50=0.914）
     └── simam/best.pt          改进模型最佳权重（mAP50=0.926）
@@ -46,14 +49,14 @@ Chip-Defect-Detection/
 ## 环境准备
 
 ```bash
-pip install ultralytics opencv-python numpy pandas
+pip install -r requirements.txt
 ```
 
-开发环境：Python 3.13，PyTorch 2.11.0（CPU 训练同样可复现）。
+`requirements.txt` 已固定 `ultralytics==8.4.37`（与训练时一致，保证权重可正常加载）。开发环境：Python 3.13，PyTorch 2.11.0（CPU 训练同样可复现）。
 
 ## 数据集准备
 
-按 YOLO 格式整理数据，放到仓库根目录下的 `datasets/chip_defect_detection/`：
+仓库自带 10 张验证集样例（含标注）在 `datasets/chip_defect_detection/`，可直接运行 `predict.py` 体验。完整训练集不随仓库分发，训练前需自行按 YOLO 格式整理数据放到同一目录：
 
 ```
 datasets/chip_defect_detection/
@@ -101,6 +104,8 @@ results[0].save('out.jpg')
 ```
 
 权重文件自带网络结构与类别名，无需再加载 yaml 配置。
+
+**注意**：`weights/simam/best.pt` 包含自定义的 SimAM 模块，加载前需将仓库根目录的 `attention.py` 复制到所装 ultralytics 包的 `nn/modules/` 目录下（即 `ultralytics/nn/modules/attention.py`），否则反序列化时会报 `ModuleNotFoundError`。基线权重无此要求。
 
 ## 引用
 
